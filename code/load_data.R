@@ -1,3 +1,5 @@
+library(data.table)
+
 # Load scraped data
 anime_list <- jsonlite::read_json("data/data.txt")
 anime_list <- lapply(anime_list, function(x) {
@@ -22,4 +24,5 @@ anime_list <- lapply(anime_list, function(x) {
   x
 })
 
-anime_df <- do.call(rbind, anime_list)
+anime_df <- data.table(do.call(rbind, anime_list))
+rm(list = setdiff(ls(), "anime_df"))

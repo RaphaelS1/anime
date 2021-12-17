@@ -1,6 +1,6 @@
 # 1. Load data
 source("code/load_data.R")
-anime_df
+head(anime_df)
 
 # 2. Basic exploration:
 

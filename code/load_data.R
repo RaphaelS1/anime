@@ -10,9 +10,6 @@ anime_list <- lapply(anime_list, function(x) {
   x$endDate <- as.Date(
     sprintf("%s-%s-01", x$endDate$year, x$endDate$month)
   )
-  if (length(x$endDate) == 0) {
-    x$endDate <- NA
-  }
   x$genres <- paste0(
     x$genres,
     collapse = ","
@@ -21,7 +18,10 @@ anime_list <- lapply(anime_list, function(x) {
     vapply(x$tags, "[[", character(1), "name")[seq(min(3, length(x$tags)))],
     collapse = ","
   )
-  x
+
+  x <- lapply(x, function(y) if (length(y) == 0) NA else y)
+
+  as.data.frame(x)
 })
 
 anime_df <- data.table(do.call(rbind, anime_list))

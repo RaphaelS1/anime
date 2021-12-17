@@ -18,30 +18,29 @@ subset(anime_df, grepl("Drama", anime_df$genres))
 subset(anime_df, grepl("Gore", anime_df$tags))
 
 ## Summarise each variable
-table(unlist(anime_df$isAdult))
-summary(unlist(anime_df$popularity))
+table(anime_df$isAdult)
+summary(anime_df$popularity)
 
 ## Statistical tests
 #  - chisq.test
 #  - ks.test / wilcox.test / ANOVA
 ks.test(
-  unlist(subset(anime_df, grepl("Drama", anime_df$genres))$popularity),
-  unlist(subset(anime_df, grepl("Psychological", anime_df$genres))$popularity)
+  subset(anime_df, grepl("Drama", anime_df$genres))$popularity,
+  subset(anime_df, grepl("Psychological", anime_df$genres))$popularity
 )
 ## compare mean popularity across genres
 t.test(
-  unlist(subset(anime_df, grepl("Drama", anime_df$genres))$popularity),
-  unlist(subset(anime_df, grepl("Psychological", anime_df$genres))$popularity)
+  subset(anime_df, grepl("Drama", anime_df$genres))$popularity,
+  subset(anime_df, grepl("Psychological", anime_df$genres))$popularity
 )
 t.test(
-  unlist(subset(anime_df, unlist(anime_df$isAdult))$popularity),
-  unlist(subset(anime_df, !unlist(anime_df$isAdult))$popularity)
+  subset(anime_df, unlist(anime_df$isAdult))$popularity,
+  subset(anime_df, !unlist(anime_df$isAdult))$popularity
 )
 t.test(
-  unlist(subset(anime_df, unlist(anime_df$isAdult))$averageScore),
-  unlist(subset(anime_df, !unlist(anime_df$isAdult))$averageScore)
+  subset(anime_df, unlist(anime_df$isAdult))$averageScore,
+  subset(anime_df, !unlist(anime_df$isAdult))$averageScore
 )
-
 
 # 4. H0: The proportion of 18+ content has increased over time
 lm(startDate ~ isAdult)
